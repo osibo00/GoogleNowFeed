@@ -1,11 +1,14 @@
 package productions.darthplagueis.googlenowfeed;
 
+import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import java.util.List;
 
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean loadNyRegion;
     private boolean loadWorld;
     private String apiKey = "39d64cbc2574413981aa95276470b20d";
+    private FloatingActionButton scrollToTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         articleRecycler.setAdapter(articlesAdapter);
         articleRecycler.setHasFixedSize(true);
         articleRecycler.setLayoutManager(linearLayoutManager);
+
+        scrollToTop();
 
         loadArticles();
 
@@ -186,5 +192,19 @@ public class MainActivity extends AppCompatActivity {
         loadNyRegion = true;
         loadWorld = true;
         getTechTimesData();
+    }
+
+    private void scrollToTop() {
+        scrollToTop = findViewById(R.id.scroll_to_top);
+        scrollToTop.setImageResource(R.drawable.scroll_to_top);
+        scrollToTop.setSize(FloatingActionButton.SIZE_AUTO);
+
+        scrollToTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayoutManager layoutManager = (LinearLayoutManager) articleRecycler.getLayoutManager();
+                layoutManager.scrollToPositionWithOffset(0, 0);
+            }
+        });
     }
 }
