@@ -11,12 +11,16 @@ import retrofit2.http.Query;
  */
 
 public interface NewYorkTimesApi {
-    //https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=39d64cbc2574413981aa95276470b20d
 
+    @GET("technology.json")
+    Call<Articles> getTechArticles(@Query("api-key") String apiKey);
 
-//    @GET("all.json")
-//    Call<Articles> getArticles(@Header("api-key") String apiKey, @Query("limit") int limit, @Query("offset") int offset);
+    @GET("national.json")
+    Call<Articles> getNationalArticles(@Query("api-key") String apiKey);
 
-    @GET("nyt/all.json")
-    Call<Articles> getAllArticles(@Query("api-key") String apiKey, @Query("limit") int limit, @Query("offset") int offset);
+    @GET("world.json")
+    Call<Articles> getWorldArticles(@Query("api-key") String apiKey);
+
+    @GET("nyregion.json")
+    Call<Articles> getNyRegionArticles(@Query("api-key") String apiKey);
 }
