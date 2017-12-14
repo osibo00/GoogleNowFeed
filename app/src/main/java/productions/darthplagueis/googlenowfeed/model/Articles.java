@@ -1,5 +1,7 @@
 package productions.darthplagueis.googlenowfeed.model;
 
+import java.util.List;
+
 /**
  * Created by oleg on 12/12/17.
  */
@@ -7,8 +9,9 @@ package productions.darthplagueis.googlenowfeed.model;
 public class Articles {
     private String status;
     private String copyright;
+    private String section;
     private int num_results;
-    private Results[] results;
+    private List<Results> results;
 
     public String getStatus() {
         return status;
@@ -18,11 +21,15 @@ public class Articles {
         return copyright;
     }
 
+    public String getSection() {
+        return section;
+    }
+
     public int getNum_results() {
         return num_results;
     }
 
-    public Results[] getResults() {
+    public List<Results> getResults() {
         return results;
     }
 }

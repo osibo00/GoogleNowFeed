@@ -3,80 +3,89 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp"
-        app:cardUseCompatPadding="true"
-        app:contentPadding="5dp">
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/article_section"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                tools:text="Section" />
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/article_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/article_section"
-                android:background="@drawable/nytlogo"
-                android:scaleType="fitXY"/>
-
-            <TextView
-                android:id="@+id/article_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/article_image"
-                tools:text="Author" />
-
-            <TextView
-                android:id="@+id/article_nyt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="60dp"
-                android:layout_toEndOf="@id/article_section"
-                tools:text="New York Times" />
+                android:scaleType="fitXY" />
 
-            <TextView
-                android:id="@+id/article_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/article_nyt"
-                android:layout_marginStart="60dp"
-                android:layout_toEndOf="@id/article_image"
-                tools:text="Title" />
-
-            <TextView
-                android:id="@+id/article_abstract"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/article_title"
-                android:layout_marginStart="60dp"
-                android:layout_toEndOf="@id/article_image"
-                tools:text="Abstract" />
-
-            <TextView
-                android:id="@+id/article_date"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/article_image"
-                android:layout_marginStart="60dp"
-                android:layout_toEndOf="@id/article_author"
-                tools:text="Date" />
+                android:baselineAligned="false"
+                android:padding="8dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/article_section"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        tools:text="Section" />
+
+                    <TextView
+                        android:id="@+id/article_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Author" />
+
+                    <TextView
+                        android:id="@+id/article_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Date" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+
+                    <TextView
+                        android:id="@+id/article_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        tools:text="Title" />
+
+                    <TextView
+                        android:id="@+id/article_abstract"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="textStart"
+                        tools:text="Abstract" />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </RelativeLayout>
 

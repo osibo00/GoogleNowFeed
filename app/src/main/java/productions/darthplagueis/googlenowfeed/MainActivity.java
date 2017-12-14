@@ -7,8 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import productions.darthplagueis.googlenowfeed.api.NewYorkTimesApi;
@@ -23,10 +21,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "RESULTS";
     private RecyclerView articleRecycler;
+    private ArticlesAdapter articlesAdapter;
     private LinearLayoutManager linearLayoutManager;
     private Retrofit retrofit;
-    private int offset;
     private boolean loadMoreArticles;
+    private boolean loadNational;
+    private boolean loadNyRegion;
+    private boolean loadWorld;
+    private String apiKey = "39d64cbc2574413981aa95276470b20d";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         articleRecycler = (RecyclerView) findViewById(R.id.main_recycler);
+        articlesAdapter = new ArticlesAdapter(getApplicationContext());
         linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        articleRecycler.setAdapter(articlesAdapter);
         articleRecycler.setHasFixedSize(true);
         articleRecycler.setLayoutManager(linearLayoutManager);
 
@@ -56,9 +60,14 @@ public class MainActivity extends AppCompatActivity {
                 if (dy > 0) {
                     if (loadMoreArticles) {
                         if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-                            offset += 19;
                             loadMoreArticles = false;
-                            getTimesData(offset);
+                            if (loadNational) {
+                                getNationalTimesData();
+                            } else if (loadNyRegion) {
+                                getNyRegionTimesData();
+                            } else if (loadWorld) {
+                                getWorldTimesData();
+                            }
                         }
                     }
                 }
@@ -66,20 +75,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getTimesData(int offset) {
+    private void getTechTimesData() {
         NewYorkTimesApi newYorkTimesApi = retrofit.create(NewYorkTimesApi.class);
-        Call<Articles> articlesCall = newYorkTimesApi.getAllArticles("39d64cbc2574413981aa95276470b20d", 20, offset);
+        Call<Articles> articlesCall = newYorkTimesApi.getTechArticles(apiKey);
         articlesCall.enqueue(new Callback<Articles>() {
             @Override
             public void onResponse(Call<Articles> call, retrofit2.Response<Articles> response) {
                 loadMoreArticles = true;
                 if (response.isSuccessful()) {
                     Articles articles = response.body();
-                    List<Results> resultsList = new ArrayList<>();
-                    Collections.addAll(resultsList, articles.getResults());
-
-                    articleRecycler.setAdapter(new ArticlesAdapter(resultsList));
-                    Log.d(TAG, "onResponse: " + response.body());
+                    List<Results> resultsList = articles.getResults();
+                    articlesAdapter.listResults(resultsList);
+                    Log.d(TAG, "onResponse: " + resultsList.size());
                 }
             }
 
@@ -92,15 +99,92 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void getNationalTimesData() {
+        NewYorkTimesApi newYorkTimesApi = retrofit.create(NewYorkTimesApi.class);
+        Call<Articles> articlesCall = newYorkTimesApi.getNationalArticles(apiKey);
+        articlesCall.enqueue(new Callback<Articles>() {
+            @Override
+            public void onResponse(Call<Articles> call, retrofit2.Response<Articles> response) {
+                loadMoreArticles = true;
+                loadNational = false;
+                if (response.isSuccessful()) {
+                    Articles articles = response.body();
+                    List<Results> resultsList = articles.getResults();
+                    articlesAdapter.listResults(resultsList);
+                    Log.d(TAG, "onResponse: " + resultsList.size());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Articles> call, Throwable t) {
+                loadMoreArticles = true;
+                Log.d(TAG, "onFailure: " + call.request());
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void getNyRegionTimesData() {
+        NewYorkTimesApi newYorkTimesApi = retrofit.create(NewYorkTimesApi.class);
+        Call<Articles> articlesCall = newYorkTimesApi.getNyRegionArticles(apiKey);
+        articlesCall.enqueue(new Callback<Articles>() {
+            @Override
+            public void onResponse(Call<Articles> call, retrofit2.Response<Articles> response) {
+                loadMoreArticles = true;
+                loadNyRegion = false;
+                if (response.isSuccessful()) {
+                    Articles articles = response.body();
+                    List<Results> resultsList = articles.getResults();
+                    articlesAdapter.listResults(resultsList);
+                    Log.d(TAG, "onResponse: " + resultsList.size());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Articles> call, Throwable t) {
+                loadMoreArticles = true;
+                Log.d(TAG, "onFailure: " + call.request());
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void getWorldTimesData() {
+        NewYorkTimesApi newYorkTimesApi = retrofit.create(NewYorkTimesApi.class);
+        Call<Articles> articlesCall = newYorkTimesApi.getWorldArticles(apiKey);
+        articlesCall.enqueue(new Callback<Articles>() {
+            @Override
+            public void onResponse(Call<Articles> call, retrofit2.Response<Articles> response) {
+                loadWorld = false;
+                if (response.isSuccessful()) {
+                    Articles articles = response.body();
+                    List<Results> resultsList = articles.getResults();
+                    articlesAdapter.listResults(resultsList);
+                    Log.d(TAG, "onResponse: " + resultsList.size());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Articles> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + call.request());
+                t.printStackTrace();
+            }
+        });
+    }
+
     @NonNull
     private void unlimitedPower() {
+
+
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.nytimes.com/svc/news/v3/content/")
+                .baseUrl("https://api.nytimes.com/svc/topstories/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        offset = 1;
         loadMoreArticles = false;
-        getTimesData(offset);
+        loadNational = true;
+        loadNyRegion = true;
+        loadWorld = true;
+        getTechTimesData();
     }
 }

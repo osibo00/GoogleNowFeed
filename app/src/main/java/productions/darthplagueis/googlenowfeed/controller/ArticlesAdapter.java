@@ -1,10 +1,12 @@
 package productions.darthplagueis.googlenowfeed.controller;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import productions.darthplagueis.googlenowfeed.R;
@@ -17,9 +19,11 @@ import productions.darthplagueis.googlenowfeed.view.ArticlesViewHolder;
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesViewHolder> {
     private List<Results> resultsList;
+    private Context context;
 
-    public ArticlesAdapter(List<Results> resultsList) {
-        this.resultsList = resultsList;
+    public ArticlesAdapter(Context context) {
+        this.context = context;
+        resultsList = new ArrayList<>();
     }
 
     @Override
@@ -38,6 +42,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesViewHolder> {
         return resultsList.size();
     }
 
-    public void listResults(List<Results> resultsList) {
+    public void listResults(List<Results> results) {
+        resultsList.addAll(results);
+        notifyDataSetChanged();
     }
 }
