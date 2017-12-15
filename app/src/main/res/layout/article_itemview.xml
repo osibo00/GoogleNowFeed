@@ -13,6 +13,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
         app:cardCornerRadius="2dp"
         app:cardElevation="5dp">
 
@@ -38,12 +39,15 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".4"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
                     <TextView
                         android:id="@+id/article_section"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="15sp"
                         tools:text="Section" />
 
@@ -51,12 +55,14 @@
                         android:id="@+id/article_author"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
                         tools:text="Author" />
 
                     <TextView
                         android:id="@+id/article_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
                         tools:text="Date" />
 
                 </LinearLayout>
@@ -73,7 +79,9 @@
                         android:id="@+id/article_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="20sp"
                         tools:text="Title" />
 
@@ -81,6 +89,7 @@
                         android:id="@+id/article_abstract"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
                         android:textAlignment="textStart"
                         tools:text="Abstract" />
                 </LinearLayout>

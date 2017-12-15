@@ -1,15 +1,14 @@
-package productions.darthplagueis.googlenowfeed.model;
+package productions.darthplagueis.googlenowfeed.model.Timeswire;
 
 import java.util.List;
 
 /**
- * Created by oleg on 12/12/17.
+ * Created by oleg on 12/15/17.
  */
 
 public class Articles {
     private String status;
     private String copyright;
-    private String section;
     private int num_results;
     private List<Results> results;
 
@@ -19,10 +18,6 @@ public class Articles {
 
     public String getCopyright() {
         return copyright;
-    }
-
-    public String getSection() {
-        return section;
     }
 
     public int getNum_results() {

@@ -1,4 +1,4 @@
-package productions.darthplagueis.googlenowfeed.model;
+package productions.darthplagueis.googlenowfeed.model.TopStories;
 
 /**
  * Created by oleg on 12/12/17.

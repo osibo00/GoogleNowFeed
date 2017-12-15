@@ -1,7 +1,6 @@
 package productions.darthplagueis.googlenowfeed.view;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,18 +8,17 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import productions.darthplagueis.googlenowfeed.R;
-import productions.darthplagueis.googlenowfeed.model.Multimedia;
-import productions.darthplagueis.googlenowfeed.model.Results;
+import productions.darthplagueis.googlenowfeed.model.Timeswire.Results;
 
 /**
- * Created by oleg on 12/13/17.
+ * Created by oleg on 12/15/17.
  */
 
-public class ArticlesViewHolder extends RecyclerView.ViewHolder {
+public class TimeswireViewHolder extends RecyclerView.ViewHolder {
     private TextView section, author, title, articleAbstract, date;
     private ImageView thumbnail;
 
-    public ArticlesViewHolder(View itemView) {
+    public TimeswireViewHolder(View itemView) {
         super(itemView);
         section = (TextView) itemView.findViewById(R.id.article_section);
         author = (TextView) itemView.findViewById(R.id.article_author);
@@ -44,7 +42,7 @@ public class ArticlesViewHolder extends RecyclerView.ViewHolder {
 
         try {
             Glide.with(itemView)
-                    .load(results.getMultimedia()[3].getUrl())
+                    .load(results.getThumbnail_standard())
                     .into(thumbnail);
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
