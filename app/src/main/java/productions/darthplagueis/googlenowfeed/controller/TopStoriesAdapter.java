@@ -10,31 +10,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import productions.darthplagueis.googlenowfeed.R;
-import productions.darthplagueis.googlenowfeed.model.Results;
-import productions.darthplagueis.googlenowfeed.view.ArticlesViewHolder;
+import productions.darthplagueis.googlenowfeed.model.TopStories.Results;
+import productions.darthplagueis.googlenowfeed.view.TopStoriesViewHolder;
 
 /**
  * Created by oleg on 12/13/17.
  */
 
-public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesViewHolder> {
+public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesViewHolder> {
     private List<Results> resultsList;
     private Context context;
 
-    public ArticlesAdapter(Context context) {
+    public TopStoriesAdapter(Context context) {
         this.context = context;
         resultsList = new ArrayList<>();
     }
 
     @Override
-    public ArticlesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TopStoriesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.article_itemview, parent, false);
-        return new ArticlesViewHolder(view);
+        return new TopStoriesViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ArticlesViewHolder holder, int position) {
-        ((ArticlesViewHolder) holder).onBind(resultsList.get(position));
+    public void onBindViewHolder(TopStoriesViewHolder holder, int position) {
+        ((TopStoriesViewHolder) holder).onBind(resultsList.get(position));
     }
 
     @Override
