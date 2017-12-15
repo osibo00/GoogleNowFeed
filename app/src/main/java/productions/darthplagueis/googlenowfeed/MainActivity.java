@@ -63,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
                 int totalItemCount = linearLayoutManager.getItemCount();
                 int pastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
 
+                if (dy <= 0) {
+                    scrollToTop.setVisibility(View.VISIBLE);
+                }
+
                 if (dy > 0) {
                     if (loadMoreArticles) {
                         if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
@@ -76,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     }
+                    scrollToTop.setVisibility(View.GONE);
                 }
             }
         });
@@ -196,14 +201,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void scrollToTop() {
         scrollToTop = findViewById(R.id.scroll_to_top);
-        scrollToTop.setImageResource(R.drawable.scroll_to_top);
         scrollToTop.setSize(FloatingActionButton.SIZE_AUTO);
+        scrollToTop.setVisibility(View.GONE);
 
         scrollToTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LinearLayoutManager layoutManager = (LinearLayoutManager) articleRecycler.getLayoutManager();
-                layoutManager.scrollToPositionWithOffset(0, 0);
+                articleRecycler.smoothScrollToPosition(0);
             }
         });
     }
