@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import productions.darthplagueis.googlenowfeed.BuildConfig;
 import productions.darthplagueis.googlenowfeed.R;
 import productions.darthplagueis.googlenowfeed.api.NewYorkTimesApi;
+import productions.darthplagueis.googlenowfeed.api.Token;
 import productions.darthplagueis.googlenowfeed.controller.TopStoriesAdapter;
 import productions.darthplagueis.googlenowfeed.model.TopStories.Articles;
 import productions.darthplagueis.googlenowfeed.model.TopStories.Results;
@@ -36,7 +38,7 @@ public class TopStoriesFragment extends Fragment {
     private boolean loadNational;
     private boolean loadNyRegion;
     private boolean loadWorld;
-    private String apiKey = "39d64cbc2574413981aa95276470b20d";
+    private static final String API_KEY = BuildConfig.API_KEY;
     private FloatingActionButton scrollToTop;
 
     public TopStoriesFragment() {
@@ -125,7 +127,7 @@ public class TopStoriesFragment extends Fragment {
 
     private void getTechTimesData() {
         NewYorkTimesApi newYorkTimesApi = retrofit.create(NewYorkTimesApi.class);
-        Call<Articles> articlesCall = newYorkTimesApi.getTechArticles(apiKey);
+        Call<Articles> articlesCall = newYorkTimesApi.getTechArticles(API_KEY);
         articlesCall.enqueue(new Callback<Articles>() {
             @Override
             public void onResponse(Call<Articles> call, retrofit2.Response<Articles> response) {
@@ -149,7 +151,7 @@ public class TopStoriesFragment extends Fragment {
 
     private void getNationalTimesData() {
         NewYorkTimesApi newYorkTimesApi = retrofit.create(NewYorkTimesApi.class);
-        Call<Articles> articlesCall = newYorkTimesApi.getNationalArticles(apiKey);
+        Call<Articles> articlesCall = newYorkTimesApi.getNationalArticles(API_KEY);
         articlesCall.enqueue(new Callback<Articles>() {
             @Override
             public void onResponse(Call<Articles> call, retrofit2.Response<Articles> response) {
@@ -174,7 +176,7 @@ public class TopStoriesFragment extends Fragment {
 
     private void getNyRegionTimesData() {
         NewYorkTimesApi newYorkTimesApi = retrofit.create(NewYorkTimesApi.class);
-        Call<Articles> articlesCall = newYorkTimesApi.getNyRegionArticles(apiKey);
+        Call<Articles> articlesCall = newYorkTimesApi.getNyRegionArticles(API_KEY);
         articlesCall.enqueue(new Callback<Articles>() {
             @Override
             public void onResponse(Call<Articles> call, retrofit2.Response<Articles> response) {
@@ -199,7 +201,7 @@ public class TopStoriesFragment extends Fragment {
 
     private void getWorldTimesData() {
         NewYorkTimesApi newYorkTimesApi = retrofit.create(NewYorkTimesApi.class);
-        Call<Articles> articlesCall = newYorkTimesApi.getWorldArticles(apiKey);
+        Call<Articles> articlesCall = newYorkTimesApi.getWorldArticles(API_KEY);
         articlesCall.enqueue(new Callback<Articles>() {
             @Override
             public void onResponse(Call<Articles> call, retrofit2.Response<Articles> response) {

@@ -11,10 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.List;
 
+import productions.darthplagueis.googlenowfeed.BuildConfig;
 import productions.darthplagueis.googlenowfeed.R;
 import productions.darthplagueis.googlenowfeed.api.NewYorkTimesApi;
 import productions.darthplagueis.googlenowfeed.controller.TimeswireAdapter;
@@ -36,7 +36,7 @@ public class TimeswireFragment extends Fragment {
     private Retrofit retrofit;
     private boolean loadMoreArticles;
     private int offset;
-    private String apiKey = "39d64cbc2574413981aa95276470b20d";
+    private static final String API_KEY = BuildConfig.API_KEY;
     private FloatingActionButton scrollToTop;
 
 
@@ -118,7 +118,7 @@ public class TimeswireFragment extends Fragment {
 
     private void getTimeswireData(int offset) {
         NewYorkTimesApi newYorkTimesApi = retrofit.create(NewYorkTimesApi.class);
-        Call<Articles> articlesCall = newYorkTimesApi.getTimeswireArticles(apiKey, 20, offset);
+        Call<Articles> articlesCall = newYorkTimesApi.getTimeswireArticles(API_KEY, 20, offset);
         articlesCall.enqueue(new Callback<Articles>() {
             @Override
             public void onResponse(Call<Articles> call, retrofit2.Response<Articles> response) {
