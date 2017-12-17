@@ -8,4 +8,5 @@
 /captures
 .externalNativeBuild
 gradle.properties
-
+/gradle.properties
+/.gradle/gradle.properties
