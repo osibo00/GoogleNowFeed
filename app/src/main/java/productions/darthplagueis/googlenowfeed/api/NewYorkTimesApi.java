@@ -3,7 +3,6 @@ package productions.darthplagueis.googlenowfeed.api;
 import productions.darthplagueis.googlenowfeed.model.Articles;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 /**
@@ -23,4 +22,8 @@ public interface NewYorkTimesApi {
 
     @GET("nyregion.json")
     Call<Articles> getNyRegionArticles(@Query("api-key") String apiKey);
+
+
+
+
 }
