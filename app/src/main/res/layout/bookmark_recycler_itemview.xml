@@ -9,7 +9,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
@@ -19,20 +19,12 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/saved_article_image"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_alignParentTop="true"
-                android:scaleType="fitXY" />
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/saved_text_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/saved_article_image"
                 android:baselineAligned="false"
                 android:padding="8dp">
 

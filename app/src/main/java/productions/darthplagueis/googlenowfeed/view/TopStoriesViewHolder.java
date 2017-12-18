@@ -1,7 +1,9 @@
 package productions.darthplagueis.googlenowfeed.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +26,7 @@ import productions.darthplagueis.googlenowfeed.model.TopStories.Results;
 public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
     private TextView section, author, title, articleAbstract, date;
     private ImageView thumbnail;
-    private Button bookmark;
+    private Button bookmark, browser;
     private SharedPreferences sharedPrefs;
 
     public TopStoriesViewHolder(View itemView) {
@@ -36,9 +38,11 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
         date = (TextView) itemView.findViewById(R.id.article_date);
         thumbnail = (ImageView) itemView.findViewById(R.id.article_image);
         bookmark = (Button) itemView.findViewById(R.id.bookmark);
+        browser = (Button) itemView.findViewById(R.id.browser);
+
     }
 
-    public void onBind(Results results) {
+    public void onBind(final Results results) {
         section.setText(results.getSection());
         author.setText(results.getByline());
         title.setText(results.getTitle());
@@ -74,8 +78,9 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
                             .put("author", author.getText().toString())
                             .put("title", title.getText().toString())
                             .put("articleAbstract", articleAbstract.getText().toString())
-                            .put("date", date.getText().toString());
-                    bookmarkObjects.put("object",object);
+                            .put("date", date.getText().toString())
+                            .put("thumbnail", results.getMultimedia()[4].getUrl());
+                    bookmarkObjects.put("object", object);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -83,6 +88,16 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
 
                 editor.putString("saved", bookmarkObjects.toString()).commit();
 
+            }
+        });
+
+        browser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(itemView.getContext(), "Opening Browser", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(results.getUrl()));
+                v.getContext().startActivity(intent);
             }
         });
     }
