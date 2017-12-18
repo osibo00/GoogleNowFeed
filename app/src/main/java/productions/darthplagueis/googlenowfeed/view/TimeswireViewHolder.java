@@ -1,7 +1,9 @@
 package productions.darthplagueis.googlenowfeed.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import org.json.JSONObject;
 
 import productions.darthplagueis.googlenowfeed.R;
 import productions.darthplagueis.googlenowfeed.model.Timeswire.Results;
+
 
 /**
  * Created by oleg on 12/15/17.
@@ -42,7 +45,7 @@ public class TimeswireViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public void onBind(Results results) {
+    public void onBind(final Results results) {
         section.setText(results.getSection());
         author.setText(results.getByline());
         title.setText(results.getTitle());
@@ -79,14 +82,26 @@ public class TimeswireViewHolder extends RecyclerView.ViewHolder {
                             .put("author", author.getText().toString())
                             .put("title", title.getText().toString())
                             .put("articleAbstract", articleAbstract.getText().toString())
-                            .put("date", date.getText().toString());
-                    bookmarkObjects.put("object",object);
+                            .put("date", date.getText().toString())
+                            .put("thumbnail", results.getThumbnail_standard());
+
+                    bookmarkObjects.put("object", object);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 editor.putString("saved", bookmarkObjects.toString()).commit();
+            }
+        });
+
+        browser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(itemView.getContext(), "Opening Browser", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(results.getUrl()));
+                v.getContext().startActivity(intent);
             }
         });
     }
