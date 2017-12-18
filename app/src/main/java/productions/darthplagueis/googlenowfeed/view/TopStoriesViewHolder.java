@@ -79,7 +79,8 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
                             .put("title", title.getText().toString())
                             .put("articleAbstract", articleAbstract.getText().toString())
                             .put("date", date.getText().toString())
-                            .put("thumbnail", results.getMultimedia()[4].getUrl());
+                            .put("thumbnail", results.getMultimedia()[4].getUrl())
+                            .put("browser",results.getUrl());
                     bookmarkObjects.put("object", object);
 
                 } catch (JSONException e) {
@@ -97,8 +98,7 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
                 Toast.makeText(itemView.getContext(), "Opening Browser", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(results.getUrl()));
-                v.getContext().startActivity(intent);
-            }
+                v.getContext().startActivity(intent);            }
         });
     }
 }
