@@ -2,19 +2,23 @@ package productions.darthplagueis.googlenowfeed.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import productions.darthplagueis.googlenowfeed.R;
@@ -28,6 +32,7 @@ public class BookmarksFragment extends Fragment {
     private View rootView;
     private JSONObject jsonObject;
     private ImageView thumbnail;
+    private Button browser;
 
 
     public BookmarksFragment() {
@@ -46,6 +51,7 @@ public class BookmarksFragment extends Fragment {
         savedTitle = rootView.findViewById(R.id.saved_article_title);
         savedAbstract = rootView.findViewById(R.id.saved_article_abstract);
         thumbnail = rootView.findViewById(R.id.saved_article_image);
+        browser = rootView.findViewById(R.id.saved_browser);
 
 
         return rootView;
@@ -58,7 +64,7 @@ public class BookmarksFragment extends Fragment {
         try {
             String jsonString = sharedPrefs.getString("saved", null);
             jsonObject = new JSONObject(jsonString);
-            JSONObject results = (JSONObject) jsonObject.get("object");
+            final JSONObject results = (JSONObject) jsonObject.get("object");
 
             savedSection.setText(results.getString("section"));
             savedAuthor.setText(results.getString("author"));
@@ -73,6 +79,19 @@ public class BookmarksFragment extends Fragment {
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
             }
+            browser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(rootView.getContext(), "Opening Browser", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    try {
+                        intent.setData(Uri.parse(results.getString("browser")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    rootView.getContext().startActivity(intent);
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();

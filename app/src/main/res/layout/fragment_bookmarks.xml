@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context="productions.darthplagueis.googlenowfeed.fragments.BookmarksFragment">
+    android:orientation="vertical">
 
 
     <android.support.v7.widget.CardView
@@ -95,6 +95,19 @@
                         tools:text="Abstract" />
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/saved_text_holder"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/saved_browser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="browser" />
             </LinearLayout>
         </RelativeLayout>
 
