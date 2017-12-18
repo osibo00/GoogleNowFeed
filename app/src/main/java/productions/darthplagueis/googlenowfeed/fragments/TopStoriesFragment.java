@@ -16,7 +16,6 @@ import java.util.List;
 import productions.darthplagueis.googlenowfeed.BuildConfig;
 import productions.darthplagueis.googlenowfeed.R;
 import productions.darthplagueis.googlenowfeed.api.NewYorkTimesApi;
-import productions.darthplagueis.googlenowfeed.api.Token;
 import productions.darthplagueis.googlenowfeed.controller.TopStoriesAdapter;
 import productions.darthplagueis.googlenowfeed.model.TopStories.Articles;
 import productions.darthplagueis.googlenowfeed.model.TopStories.Results;
