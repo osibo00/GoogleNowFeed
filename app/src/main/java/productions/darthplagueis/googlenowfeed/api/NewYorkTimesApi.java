@@ -25,4 +25,7 @@ public interface NewYorkTimesApi {
 
     @GET("nyt/all.json")
     Call<productions.darthplagueis.googlenowfeed.model.Timeswire.Articles> getTimeswireArticles(@Query("api-key") String apiKey, @Query("limit") int limit, @Query("offset") int offset);
+
+    @GET("reviews/picks.json")
+    Call<productions.darthplagueis.googlenowfeed.model.MovieReviews.Articles> getMovieReviewsArticles(@Query("api-key") String apiKey, @Query("offset") int offset);
 }

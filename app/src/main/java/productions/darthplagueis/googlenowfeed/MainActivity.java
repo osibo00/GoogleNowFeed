@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Top Stories"));
         tabLayout.addTab(tabLayout.newTab().setText("Times Newswire"));
-        tabLayout.addTab(tabLayout.newTab().setText("Saved Articles"));
+        tabLayout.addTab(tabLayout.newTab().setText("Movie Reviews"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.main_viewpager);
