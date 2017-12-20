@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import productions.darthplagueis.googlenowfeed.fragments.BookmarksFragment;
 import productions.darthplagueis.googlenowfeed.fragments.MovieReviewsFragment;
 import productions.darthplagueis.googlenowfeed.fragments.TimeswireFragment;
 import productions.darthplagueis.googlenowfeed.fragments.TopStoriesFragment;
@@ -28,7 +29,7 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new TimeswireFragment();
             case 2:
-                return new MovieReviewsFragment();
+                return new BookmarksFragment();
             default:
                 return null;
         }
