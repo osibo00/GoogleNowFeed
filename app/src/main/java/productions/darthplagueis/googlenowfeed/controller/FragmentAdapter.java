@@ -29,7 +29,7 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new TimeswireFragment();
             case 2:
-                return new BookmarksFragment();
+                return new MovieReviewsFragment();
             default:
                 return null;
         }

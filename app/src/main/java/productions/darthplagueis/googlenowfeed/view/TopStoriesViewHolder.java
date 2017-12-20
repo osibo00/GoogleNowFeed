@@ -19,11 +19,13 @@ import org.json.JSONObject;
 import productions.darthplagueis.googlenowfeed.R;
 import productions.darthplagueis.googlenowfeed.model.TopStories.Results;
 
+
 /**
  * Created by oleg on 12/13/17.
  */
 
 public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
+    private final String TAG = "bookmarked_articles";
     private TextView section, author, title, articleAbstract, date;
     private ImageView thumbnail;
     private Button bookmark, browser;
@@ -62,7 +64,7 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
             e.printStackTrace();
         }
 
-        sharedPrefs = itemView.getContext().getSharedPreferences("bookmarked_articles", Context.MODE_PRIVATE);
+        sharedPrefs = itemView.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
 
         bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +82,7 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
                             .put("articleAbstract", articleAbstract.getText().toString())
                             .put("date", date.getText().toString())
                             .put("thumbnail", results.getMultimedia()[4].getUrl())
-                            .put("browser",results.getUrl());
+                            .put("browser", results.getUrl());
                     bookmarkObjects.put("object", object);
 
                 } catch (JSONException e) {
@@ -98,7 +100,8 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
                 Toast.makeText(itemView.getContext(), "Opening Browser", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(results.getUrl()));
-                v.getContext().startActivity(intent);            }
+                v.getContext().startActivity(intent);
+            }
         });
     }
 }
