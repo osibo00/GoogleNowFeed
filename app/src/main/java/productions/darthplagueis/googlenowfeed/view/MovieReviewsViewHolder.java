@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,9 +60,10 @@ public class MovieReviewsViewHolder extends RecyclerView.ViewHolder {
 
         Glide.with(itemView.getContext())
                 .load(results.getMultimedia().getSrc())
+                .apply(new RequestOptions().placeholder(R.drawable.nyt_logo).diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(thumbnail);
 
-        sharedPrefs = itemView.getContext().getSharedPreferences("bookmarked_articles", Context.MODE_PRIVATE);
+        sharedPrefs = itemView.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
 
         bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,22 +80,22 @@ public class MovieReviewsViewHolder extends RecyclerView.ViewHolder {
                             .put("title", title.getText().toString())
                             .put("articleAbstract", articleAbstract.getText().toString())
                             .put("date", date.getText().toString())
-                            .put("thumbnail", results.getMultimedia().getSrc());
-
+                            .put("thumbnail", results.getMultimedia().getSrc())
+                            .put("browser", results.getLink().getUrl());
                     bookmarkObjects.put("object", object);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                editor.putString("saved", bookmarkObjects.toString()).commit();
+                editor.putString("saved", bookmarkObjects.toString()).apply();
             }
         });
 
         browser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(itemView.getContext(), "Opening Browser", Toast.LENGTH_SHORT).show();
+                Toast.makeText(itemView.getContext(), "OPENING BROWSER", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(results.getLink().getUrl()));
                 v.getContext().startActivity(intent);

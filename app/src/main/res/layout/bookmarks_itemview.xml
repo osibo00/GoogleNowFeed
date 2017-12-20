@@ -106,7 +106,9 @@
                     android:id="@+id/saved_browser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="browser" />
+                    android:text="@string/read_article"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:theme="@style/MyButton"/>
 
             </LinearLayout>
         </RelativeLayout>
