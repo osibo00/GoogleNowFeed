@@ -11,11 +11,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import productions.darthplagueis.googlenowfeed.R;
 import productions.darthplagueis.googlenowfeed.controller.BookmarkAdapter;
 import productions.darthplagueis.googlenowfeed.model.Bookmark;
@@ -32,38 +35,48 @@ public class BookmarksFragment extends Fragment {
     public BookmarksFragment() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragments_bookmarks, container, false);
+
         RecyclerView bookmarkRecycler = rootView.findViewById(R.id.bookmark_recycler);
+
         List<Bookmark> bookmarks = new ArrayList<>();
+
         String jsonString = sharedPrefs.getString("saved", null);
+
         try {
             jsonObject = new JSONObject(jsonString);
             final JSONObject results = (JSONObject) jsonObject.get("object");
-            for (Iterator<String> it = results.keys(); it.hasNext(); ) {
-                String s = it.next();
-                bookmarks.add(new Bookmark(
-                        results.getString("section"),
-                        results.getString(s),
-                        results.getString(s),
-                        results.getString(s),
-                        results.getString(s),
-                        results.getString(s),
-                        results.getString(s)
-                ));
-            }
+
+            bookmarks.add(new Bookmark(
+                    results.getString("section"),
+                    results.getString("title"),
+                    results.getString("articleAbstract"),
+                    results.getString("author"),
+                    results.getString("date"),
+                    results.getString("browser"),
+                    results.getString("thumbnail")
+            ));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         BookmarkAdapter bookmarkAdapter = new BookmarkAdapter(bookmarks);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
+
         bookmarkRecycler.setAdapter(bookmarkAdapter);
+
         bookmarkRecycler.setLayoutManager(linearLayoutManager);
+
         return rootView;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

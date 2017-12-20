@@ -19,7 +19,6 @@ import org.json.JSONObject;
 import productions.darthplagueis.googlenowfeed.R;
 import productions.darthplagueis.googlenowfeed.model.Timeswire.Results;
 
-
 /**
  * Created by oleg on 12/15/17.
  */
@@ -65,8 +64,7 @@ public class TimeswireViewHolder extends RecyclerView.ViewHolder {
             e.printStackTrace();
         }
 
-
-        sharedPrefs = itemView.getContext().getSharedPreferences("bookmarked_articles", Context.MODE_PRIVATE);
+        sharedPrefs = itemView.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
 
         bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,8 +81,8 @@ public class TimeswireViewHolder extends RecyclerView.ViewHolder {
                             .put("title", title.getText().toString())
                             .put("articleAbstract", articleAbstract.getText().toString())
                             .put("date", date.getText().toString())
-                            .put("thumbnail", results.getThumbnail_standard());
-
+                            .put("thumbnail", results.getThumbnail_standard())
+                            .put("browser", results.getUrl());
                     bookmarkObjects.put("object", object);
 
                 } catch (JSONException e) {
@@ -92,6 +90,7 @@ public class TimeswireViewHolder extends RecyclerView.ViewHolder {
                 }
 
                 editor.putString("saved", bookmarkObjects.toString()).commit();
+
             }
         });
 
