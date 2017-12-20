@@ -8,10 +8,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,8 +31,9 @@ import productions.darthplagueis.googlenowfeed.model.Bookmark;
 
 public class BookmarksFragment extends Fragment {
     private SharedPreferences sharedPrefs;
-    private JSONObject jsonObject;
+    private final static String PREFS_NAME = "bookmarked_articles";
     private View rootView;
+    private JSONObject jsonObject;
 
     public BookmarksFragment() {
         // Required empty public constructor
@@ -39,7 +42,6 @@ public class BookmarksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragments_bookmarks, container, false);
 
         RecyclerView bookmarkRecycler = rootView.findViewById(R.id.bookmark_recycler);
@@ -80,6 +82,6 @@ public class BookmarksFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPrefs = getContext().getSharedPreferences("bookmarked_articles", Context.MODE_PRIVATE);
+        sharedPrefs = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 }

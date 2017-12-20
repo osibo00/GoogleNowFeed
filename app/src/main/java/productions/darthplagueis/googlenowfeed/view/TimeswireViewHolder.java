@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,13 +58,10 @@ public class TimeswireViewHolder extends RecyclerView.ViewHolder {
         sb.delete(10, dateString.length());
         date.setText(sb);
 
-        try {
             Glide.with(itemView)
                     .load(results.getThumbnail_standard())
+                    .apply(new RequestOptions().placeholder(R.drawable.nyt_logo).diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(thumbnail);
-        } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
 
         sharedPrefs = itemView.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
 
@@ -89,7 +88,7 @@ public class TimeswireViewHolder extends RecyclerView.ViewHolder {
                     e.printStackTrace();
                 }
 
-                editor.putString("saved", bookmarkObjects.toString()).commit();
+                editor.putString("saved", bookmarkObjects.toString()).apply();
 
             }
         });
@@ -97,7 +96,7 @@ public class TimeswireViewHolder extends RecyclerView.ViewHolder {
         browser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(itemView.getContext(), "Opening Browser", Toast.LENGTH_SHORT).show();
+                Toast.makeText(itemView.getContext(), "OPENING BROWSER", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(results.getUrl()));
                 v.getContext().startActivity(intent);

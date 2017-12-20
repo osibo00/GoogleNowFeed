@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import productions.darthplagueis.googlenowfeed.R;
 import productions.darthplagueis.googlenowfeed.model.Bookmark;
@@ -21,11 +23,11 @@ public class BookmarksViewHolder extends RecyclerView.ViewHolder {
 
     public BookmarksViewHolder(View itemView) {
         super(itemView);
-        savedSection = itemView.findViewById(R.id.saved_article_section);
-        savedAuthor = itemView.findViewById(R.id.saved_article_author);
-        savedDate = itemView.findViewById(R.id.saved_article_date);
-        savedTitle = itemView.findViewById(R.id.saved_article_title);
-        savedAbstract = itemView.findViewById(R.id.saved_article_abstract);
+        savedSection = (TextView) itemView.findViewById(R.id.saved_article_section);
+        savedAuthor = (TextView) itemView.findViewById(R.id.saved_article_author);
+        savedDate = (TextView) itemView.findViewById(R.id.saved_article_date);
+        savedTitle = (TextView) itemView.findViewById(R.id.saved_article_title);
+        savedAbstract = (TextView) itemView.findViewById(R.id.saved_article_abstract);
         thumbnail = itemView.findViewById(R.id.saved_article_image);
         browser = itemView.findViewById(R.id.saved_browser);
     }
@@ -39,6 +41,7 @@ public class BookmarksViewHolder extends RecyclerView.ViewHolder {
 
         Glide.with(itemView)
                 .load(bookmark.getThumbnail())
+                .apply(new RequestOptions().placeholder(R.drawable.nyt_logo).diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(thumbnail);
 
         browser.setOnClickListener(new View.OnClickListener() {

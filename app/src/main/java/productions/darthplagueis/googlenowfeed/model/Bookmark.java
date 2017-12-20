@@ -13,6 +13,10 @@ public class Bookmark {
     private String published_date;
     private String thumbnail;
 
+    public Bookmark() {
+
+    }
+
     public Bookmark(String section, String title, String abstract_string, String byline, String published_date, String url, String thumbnail) {
         this.section = section;
         this.title = title;
@@ -49,5 +53,33 @@ public class Bookmark {
 
     public String getThumbnail() {
         return thumbnail;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAbstract_string(String abstract_string) {
+        this.abstract_string = abstract_string;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setByline(String byline) {
+        this.byline = byline;
+    }
+
+    public void setPublished_date(String published_date) {
+        this.published_date = published_date;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +61,7 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
         try {
             Glide.with(itemView)
                     .load(results.getMultimedia()[4].getUrl())
+                    .apply(new RequestOptions().placeholder(R.drawable.nyt_logo).diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(thumbnail);
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
@@ -89,7 +92,7 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
                     e.printStackTrace();
                 }
 
-                editor.putString("saved", bookmarkObjects.toString()).commit();
+                editor.putString("saved", bookmarkObjects.toString()).apply();
 
             }
         });
@@ -97,7 +100,7 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder {
         browser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(itemView.getContext(), "Opening Browser", Toast.LENGTH_SHORT).show();
+                Toast.makeText(itemView.getContext(), "OPENING BROWSER", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(results.getUrl()));
                 v.getContext().startActivity(intent);

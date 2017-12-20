@@ -1,17 +1,27 @@
 package productions.darthplagueis.googlenowfeed.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.github.rubensousa.floatingtoolbar.FloatingToolbar;
 
 import java.util.List;
 
+import productions.darthplagueis.googlenowfeed.BookmarksActivity;
 import productions.darthplagueis.googlenowfeed.BuildConfig;
 import productions.darthplagueis.googlenowfeed.R;
 import productions.darthplagueis.googlenowfeed.api.NewYorkTimesApi;
@@ -56,10 +66,27 @@ public class MovieReviewsFragment extends Fragment {
         movieRecyclerView.setHasFixedSize(true);
         movieRecyclerView.setLayoutManager(linearLayoutManager);
 
+        floatingToolBar(rootView);
         loadArticles();
         getRetroFit();
 
         return rootView;
+    }
+
+    private void floatingToolBar(View rootView) {
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        FloatingToolbar floatingToolbar = (FloatingToolbar) rootView.findViewById(R.id.floating_toolbar);
+        floatingToolbar.attachFab(fab);
+        floatingToolbar.attachRecyclerView(movieRecyclerView);
+
+        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.fab_toolbar);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), BookmarksActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadArticles() {
