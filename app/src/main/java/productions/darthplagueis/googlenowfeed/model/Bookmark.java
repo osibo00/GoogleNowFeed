@@ -13,10 +13,6 @@ public class Bookmark {
     private String published_date;
     private String thumbnail;
 
-    public Bookmark() {
-
-    }
-
     public Bookmark(String section, String title, String abstract_string, String byline, String published_date, String url, String thumbnail) {
         this.section = section;
         this.title = title;
