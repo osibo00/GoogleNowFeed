@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import productions.darthplagueis.googlenowfeed.fragments.BookmarksFragment;
 import productions.darthplagueis.googlenowfeed.fragments.MovieReviewsFragment;
 import productions.darthplagueis.googlenowfeed.fragments.TimeswireFragment;
 import productions.darthplagueis.googlenowfeed.fragments.TopStoriesFragment;

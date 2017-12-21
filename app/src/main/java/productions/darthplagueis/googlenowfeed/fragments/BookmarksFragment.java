@@ -13,12 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -79,7 +77,6 @@ public class BookmarksFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
