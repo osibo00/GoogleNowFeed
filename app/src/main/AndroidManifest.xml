@@ -18,7 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BookmarksActivity"></activity>
+        <activity
+            android:name=".BookmarksActivity"
+            android:label="@string/bookedmark_articles">
+        </activity>
     </application>
 
 </manifest>

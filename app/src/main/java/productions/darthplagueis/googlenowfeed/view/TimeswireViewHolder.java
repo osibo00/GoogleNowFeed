@@ -58,10 +58,10 @@ public class TimeswireViewHolder extends RecyclerView.ViewHolder {
         sb.delete(10, dateString.length());
         date.setText(sb);
 
-            Glide.with(itemView)
-                    .load(results.getThumbnail_standard())
-                    .apply(new RequestOptions().placeholder(R.drawable.nyt_logo).diskCacheStrategy(DiskCacheStrategy.ALL))
-                    .into(thumbnail);
+        Glide.with(itemView)
+                .load(results.getThumbnail_standard())
+                .apply(new RequestOptions().placeholder(R.drawable.nyt_logo).diskCacheStrategy(DiskCacheStrategy.ALL))
+                .into(thumbnail);
 
         sharedPrefs = itemView.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
 
@@ -88,7 +88,7 @@ public class TimeswireViewHolder extends RecyclerView.ViewHolder {
                     e.printStackTrace();
                 }
 
-                editor.putString("saved", bookmarkObjects.toString()).apply();
+                editor.putString(title.getText().toString(), bookmarkObjects.toString()).apply();
 
             }
         });

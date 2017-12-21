@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import productions.darthplagueis.googlenowfeed.R;
 import productions.darthplagueis.googlenowfeed.controller.BookmarkAdapter;
@@ -33,7 +34,6 @@ public class BookmarksFragment extends Fragment {
     private SharedPreferences sharedPrefs;
     private final static String PREFS_NAME = "bookmarked_articles";
     private View rootView;
-    private JSONObject jsonObject;
 
     public BookmarksFragment() {
         // Required empty public constructor
@@ -44,39 +44,43 @@ public class BookmarksFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragments_bookmarks, container, false);
 
-        RecyclerView bookmarkRecycler = rootView.findViewById(R.id.bookmark_recycler);
-
         List<Bookmark> bookmarks = new ArrayList<>();
 
-        String jsonString = sharedPrefs.getString("saved", null);
+        getBookmarkedArticles(bookmarks);
 
-        try {
-            jsonObject = new JSONObject(jsonString);
-            final JSONObject results = (JSONObject) jsonObject.get("object");
-
-            bookmarks.add(new Bookmark(
-                    results.getString("section"),
-                    results.getString("title"),
-                    results.getString("articleAbstract"),
-                    results.getString("author"),
-                    results.getString("date"),
-                    results.getString("browser"),
-                    results.getString("thumbnail")
-            ));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        RecyclerView bookmarkRecycler = rootView.findViewById(R.id.bookmark_recycler);
         BookmarkAdapter bookmarkAdapter = new BookmarkAdapter(bookmarks);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
-
         bookmarkRecycler.setAdapter(bookmarkAdapter);
-
         bookmarkRecycler.setLayoutManager(linearLayoutManager);
 
         return rootView;
+    }
+
+    private void getBookmarkedArticles(List<Bookmark> bookmarks) {
+        Map<String, ?> keys = sharedPrefs.getAll();
+        for (Map.Entry<String, ?> entry : keys.entrySet()) {
+            Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
+            String jsonString = sharedPrefs.getString(entry.getKey(), null);
+            try {
+                JSONObject jsonObject = new JSONObject(jsonString);
+                final JSONObject results = (JSONObject) jsonObject.get("object");
+
+                bookmarks.add(new Bookmark(
+                        results.getString("section"),
+                        results.getString("title"),
+                        results.getString("articleAbstract"),
+                        results.getString("author"),
+                        results.getString("date"),
+                        results.getString("browser"),
+                        results.getString("thumbnail")
+                ));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     @Override

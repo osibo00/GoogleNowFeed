@@ -88,7 +88,7 @@ public class MovieReviewsViewHolder extends RecyclerView.ViewHolder {
                     e.printStackTrace();
                 }
 
-                editor.putString("saved", bookmarkObjects.toString()).apply();
+                editor.putString(title.getText().toString(), bookmarkObjects.toString()).apply();
             }
         });
 
